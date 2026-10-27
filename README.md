@@ -27,6 +27,9 @@ Summer 2026. A two-sided marketplace matching older homeowners with caregivers. 
 
 2026, ongoing. An AI lead engine for a small family business. It syncs leads, pulls call results from an AI voice agent, runs a daily lead radar and prepares draft outreach. A person approves everything before it goes out. I also made a general version, Lead Desk, that any small business can run with its own profile.
 
+- [Try the Lead Desk demo](https://lucaswalsh90-ctrl.github.io/portfolio/) (click-through, fictional data)
+- Code available on request.
+
 ![Lead Desk overview, demo data](assets/lead-desk-dashboard.png)
 
 ## How I work with AI
