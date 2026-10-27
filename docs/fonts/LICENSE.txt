@@ -1,0 +1,4 @@
+Fonts in this folder are subsets of:
+- IBM Plex Sans and IBM Plex Mono, Copyright IBM Corp.
+- Barlow Semi Condensed, Copyright The Barlow Project Authors.
+All are licensed under the SIL Open Font License, Version 1.1: https://openfontlicense.org
