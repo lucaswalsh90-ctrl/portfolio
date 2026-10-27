@@ -8,6 +8,11 @@ An AI sales workflow I built for the sales team by directing Claude and Apollo. 
 
 ## How it works
 
+![Replicator Method run with demo data](../assets/replicator-method-run.png)
+
+*Demo screen with fictional companies and people. It shows the steps, not real results.*
+
+
 It runs on a schedule. Each run:
 
 1. Starts from a customer the company has already closed.
@@ -29,4 +34,4 @@ Clean CRM data matters as much as good emails. If the records are messy, reps st
 
 ## Note
 
-Customer names, results and internal details stay private. This page describes the workflow only.
+Customer names, results and internal details stay private. This page describes the workflow only. The image is a recreation with made-up data.

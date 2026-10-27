@@ -8,6 +8,11 @@ A two-sided marketplace that matched older homeowners with caregivers. The idea 
 
 ## What I built
 
+![Porch Beacon matches screen with demo data](../assets/porch-beacon-matches.png)
+
+*A recreation of the matches screen with made-up people.*
+
+
 I built it with AI tools. It had onboarding, background checks, mutual matching and paid subscriptions. It was version controlled on GitHub and deployed live on Railway.
 
 ## What the evidence said
