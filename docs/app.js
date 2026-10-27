@@ -59,7 +59,7 @@
       return '<div class="col"><div class="col-h"><span>' + c[0] + "</span>" + chip("mute", n) + "</div>" + items.map(function (i) { return '<div class="lc"><b>' + esc(i[0]) + "</b><div>" + esc(i[1]) + "</div></div>"; }).join("") + "</div>";
     }).join("");
     var calls = D.calls.map(function (c) { return '<tr><td class="mono">' + c[0] + "</td><td>" + esc(c[1]) + '<div class="small muted">' + c[2] + "</div></td><td>" + esc(c[3]) + "</td><td>" + chip(c[4], c[5]) + "</td><td>" + esc(c[6]) + "</td></tr>"; }).join("");
-    return '<div class="hero"><div class="grow"><h1>Good morning. ' + (state.queue.length ? state.queue.length + " drafts need your OK." : "Your queue is clear.") + "</h1><p>The desk researched, verified and drafted overnight. You decide what goes out.</p></div>" +
+    return '<div class="hero"><div class="grow"><div class="eyebrow">Daily briefing</div><h1>Good morning. ' + (state.queue.length ? state.queue.length + " drafts need your OK." : "Your queue is clear.") + "</h1><p>The desk researched, verified and drafted overnight. You decide what goes out.</p></div>" +
       (state.queue.length ? '<a class="btn" href="#approvals">Review drafts</a>' : '<a class="btn" href="#ready">See ready to send</a>') + "</div>" +
       '<div class="grid g4 mt">' + tile("Leads found", "33", "+7 this week", "#radar") + tile("Approved", String(14 + state.decided.filter(function (d) { return d.v !== "Rejected"; }).length), state.queue.length + " waiting on you", "#approvals") + tile("Replies", "3", "1 quote requested", "#analytics") + tile("Spend this month", "$18.40", "Cap $50.00", "#analytics") + "</div>" +
       '<div class="card mt"><div class="row"><h2 class="grow">Pipeline</h2><span class="small muted">One row per lead in the tracker sheet</span></div><div class="board mt">' + pipe + "</div></div>" +
@@ -152,11 +152,11 @@
 
   PAGES.analytics = function () {
     var A = D.analytics, max = 12;
-    function bars(label, arr, color) { return "<h3 class=\"mt\">" + label + "</h3>" + arr.map(function (v, i) { return '<div class="bar-row"><span>' + A.weeks[i] + '</span><span class="bar" style="width:' + (v / max * 100) + "%;background:" + color + '"></span><span class="num">' + v + "</span></div>"; }).join(""); }
+    function bars(label, arr, color) { return "<h3 class=\"mt\">" + label + "</h3>" + arr.map(function (v, i) { return '<div class="bar-row"><span>' + A.weeks[i] + '</span><span class="track"><span class="bar" style="width:' + (v / max * 100) + "%;background:" + color + '"></span></span><span class="num">' + v + "</span></div>"; }).join(""); }
     return head("Analytics", "Counts, not just percentages, because a small business has small numbers.") +
       '<div class="grid g4">' + tile("Found", "33", "4 weeks") + tile("Approved by a person", "14", "42% of found") + tile("Replies", "3", "Of 11 sent") + tile("Cost per approved lead", "$1.31", "Demo number") + "</div>" +
       '<div class="grid g2 mt"><div class="card"><h2>By week</h2>' + bars("Leads found", A.found, "var(--c-lead)") + bars("Approved", A.approved, "var(--c-green)") + bars("Replies", A.replies, "var(--c-pink)") + "</div>" +
-      '<div class="card"><h2>Leads by source</h2><p class="small muted">Every contact carries a source link.</p>' + A.sources.map(function (s) { return '<div class="bar-row"><span class="small">' + esc(s[0]) + '</span><span class="bar" style="width:' + (s[1] / 14 * 100) + '%;background:var(--c-analyst)"></span><span class="num">' + s[1] + "</span></div>"; }).join("") + "</div></div>";
+      '<div class="card"><h2>Leads by source</h2><p class="small muted">Every contact carries a source link.</p>' + A.sources.map(function (s) { return '<div class="bar-row"><span class="small">' + esc(s[0]) + '</span><span class="track"><span class="bar" style="width:' + (s[1] / 14 * 100) + '%;background:var(--c-analyst)"></span></span><span class="num">' + s[1] + "</span></div>"; }).join("") + "</div></div>";
   };
 
   PAGES.about = function () {
@@ -166,12 +166,24 @@
       '<p><a href="https://github.com/lucaswalsh90-ctrl/portfolio/blob/main/projects/castle-desk.md">Project write-up</a> · Code available on request.</p></div>';
   };
 
+  var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* Visual only: count stat numbers up from zero, ending on the exact same text. */
+  function countUp() {
+    if (calm) return;
+    Array.prototype.forEach.call(document.querySelectorAll("#main .tile .v"), function (el) {
+      var t = el.textContent, m = t.match(/^(\$?)(\d+)(\.\d+)?$/); if (!m) return;
+      var end = parseFloat(m[2] + (m[3] || "")), dec = m[3] ? m[3].length - 1 : 0, t0 = performance.now();
+      function step(now) { var p = Math.min(1, (now - t0) / 750), e = 1 - Math.pow(1 - p, 3); el.textContent = p < 1 ? m[1] + (end * e).toFixed(dec) : t; if (p < 1) requestAnimationFrame(step); }
+      el.textContent = m[1] + (0).toFixed(dec); requestAnimationFrame(step);
+    });
+  }
   function route() {
     var k = (location.hash || "#overview").slice(1);
     if (!PAGES[k]) k = "overview";
     current = k; drawNav();
-    $("#main").innerHTML = PAGES[k]();
+    var M = $("#main"); M.innerHTML = PAGES[k](); M.classList.remove("enter"); void M.offsetWidth; M.classList.add("enter"); countUp();
     document.title = (FLAT[k] || "Lead Desk") + " · Lead Desk demo";
+    var cr = $("#crumb"); if (cr) cr.innerHTML = "Lead Desk / <b>" + esc(FLAT[k] || "") + "</b>";
     closeMenu();
   }
   var FLAT = {}; VIEWS.forEach(function (g) { g[1].forEach(function (v) { FLAT[v[0]] = v[1]; }); });
