@@ -10,6 +10,9 @@ I built the first version for a family business. The design works for most small
 
 The screens below show Lead Desk with a made-up business and made-up leads. No real data is shown.
 
+- [Try the click-through demo](https://lucaswalsh90-ctrl.github.io/portfolio/). Fictional data, prerecorded AI replies.
+- Code available on request.
+
 ![How the Lead Desk works](../assets/lead-desk-architecture.png)
 
 ## What it does
