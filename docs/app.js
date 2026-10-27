@@ -163,7 +163,7 @@
     return head("About this demo", "") + '<div class="card stack"><p>Lead Desk is the general version of an AI lead desk Lucas Walsh built for a small family business. Each business gets one profile with its offers, target customers and rules.</p>' +
       "<p>This page is a click-through demo. The business, leads, people, emails and phone numbers are fictional. The drafts and replies are prerecorded, and the price calculator uses made-up prices. Nothing here calls an AI model or sends anything.</p>" +
       "<p><b>How the real desk works:</b> small AI agents find organizations, verify a named contact on a public page, find one dated reason to reach out, and write a draft. A quality gate blocks any claim without a source. A person approves, edits or rejects every message.</p>" +
-      '<p><a href="https://github.com/lucaswalsh90-ctrl/portfolio/blob/main/projects/castle-desk.md">Project write-up</a> · <a href="https://github.com/lucaswalsh90-ctrl/portfolio/blob/main/projects/lead-desk-business-model.md">Business model</a> · Code available on request.</p></div>';
+      '<p><a href="https://github.com/lucaswalsh90-ctrl/portfolio/blob/main/projects/castle-desk.md">Project write-up</a> · Code available on request.</p></div>';
   };
 
   function route() {
